@@ -10,9 +10,12 @@ require 'nvim-treesitter.configs'.setup {
   auto_install = true,
 
   highlight = {
-    enable = true,
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+      enable = true,
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
   },
+  autotag = {
+      enable = true,
+  }
 }

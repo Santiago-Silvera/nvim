@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 local  plugins = {
 
     {
@@ -35,6 +34,20 @@ local  plugins = {
     {'hrsh7th/nvim-cmp'},
     {'L3MON4D3/LuaSnip'},
 
+
+    'windwp/nvim-ts-autotag',
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        opts = {}
+    },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
+    },
     'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     'romgrk/barbar.nvim',
