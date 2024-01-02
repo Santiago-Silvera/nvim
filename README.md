@@ -11,5 +11,6 @@ git clone https://github.com/Santiago-Silvera/nvim
 
 After cloning, just open `nvim` and lazy package manager will install all dependencies for you.
 It is recommended that you have installed Node.js and gcc. Also running `:checkhealth` is a good idea.
+
 ---
 Thank you :) 
