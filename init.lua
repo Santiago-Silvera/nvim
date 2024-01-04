@@ -189,14 +189,7 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
   {
     -- Set lualine as statusline
@@ -254,6 +247,7 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  'nvim-treesitter/nvim-treesitter-context',
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -268,7 +262,9 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
-
+-- Set colorscheme
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -276,9 +272,16 @@ require('lazy').setup({
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
+-- Make line number highlight and als relativenumber
+vim.wo.relativenumber = true
 vim.wo.number = true
+vim.opt.cursorline = true
 
+-- Tabs
+vim.o.autoindent = true
+
+-- Always 8 lines below my cursor
+vim.opt.scrolloff = 8
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -287,6 +290,16 @@ vim.o.mouse = 'a'
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
+vim.opt.formatoptions = vim.opt.formatoptions
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
 -- Enable break indent
 vim.o.breakindent = true
 
