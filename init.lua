@@ -31,7 +31,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically,
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -220,8 +220,8 @@ vim.opt.cursorline = true
 -- Tabs
 vim.o.autoindent = true
 vim.opt.tabstop = 8     -- Always 8 (see :h tabstop)
-vim.opt.softtabstop = 2 -- What you expecting
-vim.opt.shiftwidth = 2  -- What you expecting
+vim.opt.softtabstop = 4 -- What you expecting
+vim.opt.shiftwidth = 4  -- What you expecting
 vim.opt.expandtab = true
 
 
@@ -236,6 +236,7 @@ vim.o.mouse = 'a'
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
+-- njcroql
 vim.opt.formatoptions = vim.opt.formatoptions
     - "a" -- Auto formatting is BAD.
     - "t" -- Don't auto format my code. I got linters for that.
@@ -459,9 +460,9 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-     vim.lsp.buf.format()
-   end, { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
 end
 
 -- mason-lspconfig requires that these setup functions are called in this order
