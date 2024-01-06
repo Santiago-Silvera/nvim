@@ -219,10 +219,9 @@ vim.opt.cursorline = true
 
 -- Tabs
 vim.o.autoindent = true
-vim.opt.tabstop = 8     -- Always 8 (see :h tabstop)
-vim.opt.softtabstop = 4 -- What you expecting
-vim.opt.shiftwidth = 4  -- What you expecting
-vim.opt.expandtab = true
+vim.opt_local.shiftwidth = 4
+vim.opt_local.tabstop = 4
+
 
 
 -- Always 8 lines below my cursor
@@ -480,7 +479,7 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
