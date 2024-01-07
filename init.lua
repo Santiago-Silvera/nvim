@@ -200,7 +200,6 @@ require('lazy').setup({
 
   'nvim-treesitter/nvim-treesitter-context',
   require 'kickstart',
-  -- require 'kickstart.plugins.debug',
 
 }, {})
 -- Set colorscheme
@@ -222,7 +221,9 @@ vim.o.autoindent = true
 vim.opt_local.shiftwidth = 4
 vim.opt_local.tabstop = 4
 
-
+-- Kinda nice
+vim.opt.listchars = { eol = '↵' }
+vim.opt.list = true
 
 -- Always 8 lines below my cursor
 vim.opt.scrolloff = 8
