@@ -132,8 +132,8 @@ require('lazy').setup({
         end,
         desc = "Show harpoon list"
       },
-      { "<C-h>",     function() require('harpoon'):list():prev() end,   desc = "Go to prev harpoon" },
-      { "<C-l>",     function() require('harpoon'):list():next() end,   desc = "Go to next harpoon" },
+      { "<M-k>",     function() require('harpoon'):list():prev() end,   desc = "Go to prev harpoon" },
+      { "<M-j>",     function() require('harpoon'):list():next() end,   desc = "Go to next harpoon" },
     },
   },
   require('santiagosilvera.plugin'),
