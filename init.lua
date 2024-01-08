@@ -113,7 +113,6 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
   'nvim-treesitter/nvim-treesitter-context',
   {
     "ThePrimeagen/harpoon",
@@ -121,18 +120,18 @@ require('lazy').setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
     keys = {
-      { "<leader>a", function() require('harpoon'):list():append() end,                                 desc = "" },
-      { "<leader>h", function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end, desc = "" },
-
-      -- { "<C-h>",     function() require('harpoon'):list():select(1) end,                                desc = "" },
-      -- { "<C-j>",     function() require('harpoon'):list():select(2) end,                                desc = "" },
-      -- { "<C-k>",     function() require('harpoon'):list():select(3) end,                                desc = "" },
-      -- { "<C-l>",     function() require('harpoon'):list():select(4) end,                                desc = "" },
-
-      -- Toggle previous & next buffers stored within Harpoon list
-      { "<C-h>",     function() require('harpoon'):list():prev() end,                                   desc = "" },
-      { "<C-l>",     function() require('harpoon'):list():next() end,                                   desc = "" },
-    }
+      { "<leader>a", function() require('harpoon'):list():append() end, desc = "Add file to harpoon" },
+      {
+        "<leader>h",
+        function()
+          local harpoon = require('harpoon')
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = "Show harpoon list"
+      },
+      { "<C-h>",     function() require('harpoon'):list():prev() end,   desc = "Go to prev harpoon" },
+      { "<C-l>",     function() require('harpoon'):list():next() end,   desc = "Go to next harpoon" },
+    },
   },
   require('kickstart'),
   require('kickstart.autoformatter')
