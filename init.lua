@@ -7,7 +7,6 @@ https://github.com/nvim-lua/kickstart.nvim
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -29,9 +28,9 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically,
-  -- 'tpope/vim-sleuth',
+  'tpope/vim-sleuth',
+
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -39,11 +38,8 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       opts = {} },
-
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
@@ -57,91 +53,14 @@ require('lazy').setup({
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
   },
 
-  -- Useful plugin to show you pending keybinds.
-  {
-    -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map({ 'n', 'v' }, ']c', function()
-          if vim.wo.diff then
-            return ']c'
-          end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Jump to next hunk' })
-
-        map({ 'n', 'v' }, '[c', function()
-          if vim.wo.diff then
-            return '[c'
-          end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Jump to previous hunk' })
-
-        -- Actions
-        -- visual mode
-        map('v', '<leader>hs', function()
-          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'stage git hunk' })
-        map('v', '<leader>hr', function()
-          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'reset git hunk' })
-        -- normal mode
-        map('n', '<leader>hs', gs.stage_hunk, { desc = 'git stage hunk' })
-        map('n', '<leader>hr', gs.reset_hunk, { desc = 'git reset hunk' })
-        map('n', '<leader>hS', gs.stage_buffer, { desc = 'git Stage buffer' })
-        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
-        map('n', '<leader>hR', gs.reset_buffer, { desc = 'git Reset buffer' })
-        map('n', '<leader>hp', gs.preview_hunk, { desc = 'preview git hunk' })
-        map('n', '<leader>hb', function()
-          gs.blame_line { full = false }
-        end, { desc = 'git blame line' })
-        map('n', '<leader>hd', gs.diffthis, { desc = 'git diff against index' })
-        map('n', '<leader>hD', function()
-          gs.diffthis '~'
-        end, { desc = 'git diff against last commit' })
-
-        -- Toggles
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle git show deleted' })
-
-        -- Text object
-        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
-      end,
-    },
-  },
 
   { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = ... },
   {
@@ -176,9 +95,6 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
@@ -199,8 +115,27 @@ require('lazy').setup({
   },
 
   'nvim-treesitter/nvim-treesitter-context',
-  require 'kickstart',
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+    keys = {
+      { "<leader>a", function() require('harpoon'):list():append() end,                                 desc = "" },
+      { "<leader>h", function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end, desc = "" },
 
+      -- { "<C-h>",     function() require('harpoon'):list():select(1) end,                                desc = "" },
+      -- { "<C-j>",     function() require('harpoon'):list():select(2) end,                                desc = "" },
+      -- { "<C-k>",     function() require('harpoon'):list():select(3) end,                                desc = "" },
+      -- { "<C-l>",     function() require('harpoon'):list():select(4) end,                                desc = "" },
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      { "<C-h>",     function() require('harpoon'):list():prev() end,                                   desc = "" },
+      { "<C-l>",     function() require('harpoon'):list():next() end,                                   desc = "" },
+    }
+  },
+  require('kickstart'),
+  require('kickstart.autoformatter')
 }, {})
 -- Set colorscheme
 vim.o.background = "dark" -- or "light" for light mode
@@ -218,12 +153,15 @@ vim.opt.cursorline = true
 
 -- Tabs
 vim.o.autoindent = true
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
+vim.o.tabstop = 4
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+-- vim.o.expandtab = true -- Works without this
+
 
 -- Kinda nice
-vim.opt.listchars = { eol = '↵' }
-vim.opt.list = true
+-- vim.opt.listchars = { tab = '<->', eol = '↵' }
+-- vim.opt.list = true
 
 -- Always 8 lines below my cursor
 vim.opt.scrolloff = 8
@@ -365,10 +303,10 @@ vim.defer_fn(function()
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
     highlight = { enable = true },
-    indent = { enable = true },
+    indent = { enable = false },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -470,20 +408,12 @@ end
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
+  rust_analyzer = {},
+  tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
@@ -495,7 +425,6 @@ local servers = {
     },
   },
 }
-
 -- Setup neovim lua configuration
 require('neodev').setup()
 
