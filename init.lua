@@ -1,4 +1,4 @@
-  --[[
+--[[
 ==================================================
 =======THIS CONFIG USED KICKSTART.NVIM============
 ==================================================
@@ -34,6 +34,19 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically,
   'tpope/vim-sleuth',
 
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -117,26 +130,36 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   'nvim-treesitter/nvim-treesitter-context',
+
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
-    keys = {
-      { "<leader>a", function() require('harpoon'):list():append() end, desc = "Add file to harpoon" },
-      {
-        "<leader>h",
-        function()
-          local harpoon = require('harpoon')
-          harpoon.ui:toggle_quick_menu(harpoon:list())
-        end,
-        desc = "Show harpoon list"
-      },
-      { "<M-k>",     function() require('harpoon'):list():prev() end,   desc = "Go to prev harpoon" },
-      { "<M-j>",     function() require('harpoon'):list():next() end,   desc = "Go to next harpoon" },
+    config = function()
+      local harpoon = require('harpoon')
+      harpoon:setup({})
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { desc = "Add file to harpoon" })
+      vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+        { desc = "Show harpoon list" })
+      vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+      vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+      vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+      vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+    end,
+  },
+
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
     },
   },
+
   require('santiagosilvera.plugin'),
+  require('santiagosilvera.plugin.autoformatter')
 }, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`

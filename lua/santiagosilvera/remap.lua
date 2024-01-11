@@ -1,4 +1,4 @@
--- [[ Basic Keymaps ]]
+--[S]earch [[ Basic Keymaps ]]
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -9,7 +9,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "<leader>pp", ":Ex<CR>")
+vim.keymap.set("n", "<leader>pp", ":Ex<CR>", { desc = 'Go to file tree' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
