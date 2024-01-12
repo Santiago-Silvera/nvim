@@ -77,8 +77,13 @@ require('lazy').setup({
     },
   },
 
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 
-  { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = ... },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -86,7 +91,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'tokyonight',
         component_separators = '|',
         section_separators = '',
       },
@@ -103,7 +108,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
