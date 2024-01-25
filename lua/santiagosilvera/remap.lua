@@ -21,3 +21,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
+
+
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = 'Vim fugitive' })

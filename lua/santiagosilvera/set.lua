@@ -12,14 +12,9 @@ vim.opt.cursorline = true
 -- Tabs
 vim.o.autoindent = true
 vim.o.tabstop = 4
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 -- vim.o.expandtab = true -- Works without this
-
-
--- Kinda nice
--- vim.opt.listchars = { tab = '<->', eol = '↵' }
--- vim.opt.list = true
 
 -- Always 8 lines below my cursor
 vim.opt.scrolloff = 8
@@ -27,9 +22,6 @@ vim.opt.scrolloff = 8
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
 -- njcroql
@@ -68,3 +60,6 @@ vim.o.termguicolors = true
 
 -- No line wrapping
 vim.o.wrap = false
+
+
+vim.o.guicursor = ""

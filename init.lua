@@ -77,13 +77,8 @@ require('lazy').setup({
     },
   },
 
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-
+  -- this is a test for vim fugiteve
+  { 'rose-pine/neovim',      name = 'rose-pine' },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -91,7 +86,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight',
+        theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
       },
