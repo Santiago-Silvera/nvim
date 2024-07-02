@@ -48,6 +48,14 @@ require('lazy').setup({
     }
   },
   {
+    "lervag/vimtex",
+    init = function()
+      -- Use init for configuration, don't use the more common "config".
+    end
+  },
+  { 'davidgranstrom/nvim-markdown-preview' },
+  { 'jbyuki/nabla.nvim' },
+  {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -78,7 +86,7 @@ require('lazy').setup({
   },
 
   -- this is a test for vim fugiteve
-  { 'rose-pine/neovim',      name = 'rose-pine' },
+  { 'rose-pine/neovim',                    name = 'rose-pine' },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -132,23 +140,6 @@ require('lazy').setup({
   'nvim-treesitter/nvim-treesitter-context',
 
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local harpoon = require('harpoon')
-      harpoon:setup({})
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { desc = "Add file to harpoon" })
-      vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-        { desc = "Show harpoon list" })
-      vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-      vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-      vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-      vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-    end,
-  },
-
-  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
@@ -157,6 +148,7 @@ require('lazy').setup({
       -- refer to the configuration section below
     },
   },
+  'mfussenegger/nvim-jdtls',
 
   require('santiagosilvera.plugin'),
   require('santiagosilvera.plugin.autoformatter')

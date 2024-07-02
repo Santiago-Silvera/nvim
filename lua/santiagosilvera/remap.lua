@@ -10,6 +10,9 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader>pp", ":Ex<CR>", { desc = 'Go to file tree' })
+vim.keymap.set("n", "<leader>m", ":lua require('nabla').popup()<CR>")
+
+vim.keymap.set("n", "<F9>", ":w !gcc % -o main && .\\main <CR>")
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
