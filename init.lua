@@ -9,6 +9,7 @@ https://github.com/nvim-lua/kickstart.nvim
 -- Set leader key first thing so that it doesnt get confused
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 require('santiagosilvera')
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -85,8 +86,9 @@ require('lazy').setup({
     },
   },
 
-  -- this is a test for vim fugiteve
-  { 'rose-pine/neovim',                    name = 'rose-pine' },
+  -- Best theme ever
+  { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = ... },
+
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -94,7 +96,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'rose-pine',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -111,7 +113,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -148,11 +150,10 @@ require('lazy').setup({
       -- refer to the configuration section below
     },
   },
-  'mfussenegger/nvim-jdtls',
+
+  { "nvimtools/none-ls.nvim" },
+
 
   require('santiagosilvera.plugin'),
   require('santiagosilvera.plugin.autoformatter')
 }, {})
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
